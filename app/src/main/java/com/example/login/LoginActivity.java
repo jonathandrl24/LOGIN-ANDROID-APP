@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
     btningresar.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            new LoginActivity().login().execute("");
+            new LoginActivity.login().execute("");
 
         }
     });
@@ -125,8 +125,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
 
-
-            
             return z;
         }
     }
