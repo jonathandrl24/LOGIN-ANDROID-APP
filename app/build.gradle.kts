@@ -4,12 +4,12 @@ plugins {
 
 android {
     namespace = "com.example.login"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.login"
         minSdk = 34
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -38,6 +38,8 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(files("libs\\jtds-1.3.1.jar"))
+    implementation(libs.core.ktx)
+    implementation(libs.sqlite.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
