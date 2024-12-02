@@ -1,8 +1,10 @@
 package com.example.login;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -24,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
 
  EditText usuario, clave;
  TextView lblregistrar;
- Button btnregistrar;
+ Button btningresar;
  Connection con;
 
  public LoginActivity() {
@@ -45,8 +47,23 @@ public class LoginActivity extends AppCompatActivity {
         usuario = (EditText) findViewById(R.id.txtusuario);
         clave = (EditText) findViewById(R.id.txtclave);
         lblregistrar = (TextView) findViewById(R.id.lblregistrar);
-        btnregistrar = (Button) findViewById(R.id.btningresar);
+        btningresar = (Button) findViewById(R.id.btningresar);
 
+    btningresar.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            new LoginActivity().login().execute("");
+
+        }
+    });
+        lblregistrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent reg = new Intent(getApplicationContext(), RegisterActivity.class);
+                startActivity(reg);
+
+            }
+        });
     }
 
     public class login extends AsyncTask<String, String, String> {
@@ -80,8 +97,26 @@ public class LoginActivity extends AppCompatActivity {
                     ResultSet rs = stm.executeQuery(sql);
 
                     if(rs.next()){
-                        Toast.makeText(LoginActivity.this, "Acceso exitoso", Toast.LENGTH_SHORT).show();
-
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(LoginActivity.this, "Acceso exitoso", Toast.LENGTH_SHORT).show();
+                                Intent menu = new Intent(getApplicationContext(), MainActivity.class);
+                                startActivity(menu);
+                            }
+                                      });
+                        usuario.setText("");
+                        clave.setText("");
+                    }
+                    else{
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(LoginActivity.this, "Acceso denegado", Toast.LENGTH_SHORT).show();
+                            }
+                            });
+                        usuario.setText("");
+                        clave.setText("");
                     }
 
                 }catch (Exception e){
